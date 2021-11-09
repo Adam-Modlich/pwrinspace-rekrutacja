@@ -40,7 +40,7 @@
 }
 
 .red{
-    position: fixed;
+    position: absolute;
     bottom:0;
     left: 10%;
     background-color: red;
