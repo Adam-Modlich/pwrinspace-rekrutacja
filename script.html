@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="date">Date:</label>
+    <input type="date" id="date_input" name="date">
+    <button type="button" onclick="getVal()"> Enter Date</button>
+    <p id="day"></p>
+    <p id="past_future"></p>
+    <p id="daysDifference"></p>
+    <script>
+        const weekday = new Array(7);
+        weekday[0] = "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+
+        function getVal() {
+            var todayDate = new Date();
+            var input = document.getElementById("date_input").value;
+            var dateEntered = new Date(input);
+            var day_name = weekday[dateEntered.getDay()];
+
+            var input_day = dateEntered.getDay();
+            var input_month = dateEntered.getMonth();
+            var input_year = dateEntered.getFullYear();
+
+            var today_day = todayDate.getDay();
+            var today_month = todayDate.getMonth();
+            var today_year = todayDate.getFullYear();
+
+            document.getElementById("day").innerHTML = day_name;
+
+            var future_past = dateInPast(dateEntered,todayDate);
+            if(future_past === "past"){
+                document.getElementById("past_future").innerHTML = "past";
+            }
+            else if(future_past === "future"){
+                document.getElementById("past_future").innerHTML = "future";
+            }
+            else if(future_past === "today"){
+                document.getElementById("past_future").innerHTML = "today";
+            }
+
+            document.getElementById("daysDifference").innerHTML = Math.abs(daysDiff(todayDate,dateEntered));
+        
+        };
+        
+        function dateInPast(firstDate, secondDate) {
+            if (firstDate.setHours(0, 0, 0, 0) < secondDate.setHours(0, 0, 0, 0)) {
+                return "past";
+            }
+            else if(firstDate.setHours(0, 0, 0, 0) > secondDate.setHours(0, 0, 0, 0)){
+                return "future";
+            }
+            else{
+                return "today";
+        }};
+
+        function daysDiff(firstDate, secondDate){
+            var dayDiff = (firstDate.getTime() - secondDate.getTime()) / (1000*3600*24);
+            return dayDiff;
+        }
+
+    </script>
+</body>
+</html>
